@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <form th:action="@{/login}" class="form-horizontal" method="post">
+        <span class="heading">АВТОРИЗАЦИЯ</span>
+        <p th:if="${param.error}">
+          Неверный логин или пароль.
+        </p>
+        <div class="form-group">
+          <input type="text" class="form-control"  id="inputEmail" placeholder="Login" name="username" autofocus>
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="form-group help">
+          <input type="password" class="form-control"  id="inputPassword" placeholder="Password" name="password">
+          <i class="fa fa-lock"></i>
+          <br>
+          <button type="submit" class="btn btn-default">ВХОД</button>
+        </div>
+        <div class="form-group">
+          <input type="button" class="btn btn-default" value="Регистрация"
+                 onclick="window.location.href='/registration'">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+</body>
+</html>

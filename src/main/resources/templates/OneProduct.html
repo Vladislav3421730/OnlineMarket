@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <p class="OnlineMarketHeaderTitle">OnlineMarket</p>
+            <div sec:authorize="!isAuthenticated()">
+                <input type="button" class="btn btn-success" value="Войти"
+                       onclick="window.location.href='/login'">
+            </div>
+            <div sec:authorize="isAuthenticated()" class="Profile">
+                <h4 th:text="${user.login}" style="color: white;" ></h4>
+                <div th:if="${user.image==null}">
+                    <a th:href="@{'/profile/'+${user.id}}" ><img class="ProfileImage"
+                                                                 src="https://cdn.icon-icons.com/icons2/1993/PNG/512/account_avatar_face_man_people_profile_user_icon_123197.png"></a>
+                </div>
+                <div th:unless="${user.image==null}" >
+                    <a  th:href="@{'/profile/'+${user.id}}">
+                        <img class="ProfileImage" th:src="@{'/images/'+${user.image.id}}" alt="Avatar">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+  <section>
+      <div class="container-fluid my-4 ">
+          <h2 th:text="${product.title}"></h2>
+          <h3 th:text="${product.coast}"></h3>
+          <h4><a th:href="@{'/profile/'+${product.user.id}}">Автор</a></h4>
+          <p th:text="${product.description}" ></p>
+          <div th:each="image : ${product.getImageList()}">
+              <img style="width: 400px;height: 400px;margin: 20px;margin-inline: 0"
+                   th:src="@{'/images/'+${image.id}}" alt="Картинка">
+          </div>
+          <a href="/" class="btn btn-success">На главную</a>
+      </div>
+  </section>
+    <footer class="mt-4 bg-dark">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 footer-text text-center">
+                <p>All Rights Reserved 2024</p>
+            </div>
+            <div class="col-lg-4 col-md-12 footer-text text-center">
+                <p>Contacts<br>Job<br>Our team</p>
+            </div>
+            <div class="col-lg-4 col-md-12 media-links">
+                <img style="width: 40px;height:40px;margin-inline: 1em; " src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Картинка телеграмма">
+                <img style="width: 40px;height:40px; margin-inline: 1em;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Картинка Инстаграма">
+            </div>
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+          crossorigin="anonymous"></script>
+</body>
+</html>

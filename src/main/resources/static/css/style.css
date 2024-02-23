@@ -1,0 +1,83 @@
+.OnlineMarketHeaderTitle{
+    color: white;
+    font-size: 20px;
+    font-family: Arial;
+    text-align: center;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: orange;
+    padding: 2px;
+    padding-inline:5px;
+    margin: 2px;
+    background-color: orange;
+}
+.Profile{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    margin-left : auto
+}
+.ProfileImage{
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    background-color: white;
+    padding: 0;
+    border-style: solid;
+    border-color: white;
+    border-radius: 50%;
+}
+.media-links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer-text{
+    color: white;
+    margin: auto auto;
+}
+.footer-text p {
+    font-family: Arial;
+    font-size: 20px;
+}
+.form-select{
+    width:auto;
+    margin-bottom: 5px;
+}
+.ForInputData{
+    display: flex;
+}
+.second-form{
+    margin-left: 25px;
+}
+.w-small{
+    width: 370px;
+}
+.card:hover{
+    transform: scale(1.05);
+}
+.ProfileImageOnPage{
+    width: 300px;
+    height: 300px;
+    margin-bottom: 30px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0);
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+.ProfileImageOnPage:hover{
+    transform: scale(1.1);
+}
+.ProfileContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+.ContainerTable{
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    margin: 40px;
+}

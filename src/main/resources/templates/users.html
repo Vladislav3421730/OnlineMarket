@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+      <p class="OnlineMarketHeaderTitle">OnlineMarket</p>
+      <div sec:authorize="!isAuthenticated()">
+        <input type="button" class="btn btn-success" value="Войти"
+               onclick="window.location.href='/login'">
+      </div>
+      <div sec:authorize="isAuthenticated()" class="Profile">
+        <h4 th:text="${CurrentUser.login}" style="color: white;" ></h4>
+        <div th:if="${CurrentUser.image==null}">
+          <a th:href="@{'/profile/'+${CurrentUser.id}}" ><img class="ProfileImage"
+                                                       src="https://cdn.icon-icons.com/icons2/1993/PNG/512/account_avatar_face_man_people_profile_user_icon_123197.png"></a>
+        </div>
+        <div th:unless="${CurrentUser.image==null}" >
+          <a  th:href="@{'/profile/'+${CurrentUser.id}}">
+            <img class="ProfileImage" th:src="@{'/images/'+${CurrentUser.image.id}}" alt="Avatar">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<section>
+  <div class="container mt-4">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>Login</th>
+      <th>Email</th>
+      <th>roles</th>
+      <th>Bun</th>
+      <div sec:authorize="hasRole('ADMIN')">
+      <th>Admin</th>
+      <th>Delete</th>
+      </div>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${UserList}" >
+      <div th:if="${user.id!=CurrentUser.id}">
+        <th th:text="${user.id}"></th>
+        <th th:text="${user.login}"></th>
+        <th th:text="${user.email}"></th>
+        <th th:if="${!user.getRoleSet().isEmpty()}">
+         <span th:each="role, iterStat : ${user.getRoleSet()}">
+           <span th:text="${role.equals(role.ROLE_ADMIN) ? 'Admin' : 'Manager'}"></span>
+        <br th:unless="${iterStat.last}" />
+        </span>
+        </th>
+        <th th:if="${user.getRoleSet().isEmpty()}">
+          None
+        </th>
+        <th>
+          <form th:action="@{'user/bun/'+${user.id}}" method="post">
+            <input type="submit" class="btn btn-danger" th:value="${user.isBun ? 'Разбанить' : 'Забанить'}">
+          </form>
+        </th>
+        <div sec:authorize="hasRole('ADMIN')" >
+        <th>
+          <form th:action="@{'user/admin/'+${user.id}}" method="post">
+            <input type="submit" class="btn btn-primary"
+                   th:value="${user.isAdmin() ? 'Лишить роли ADMIN' : 'Сделать админом'}">
+          </form>
+        </th>
+        <th>
+          <form th:action="@{'/user/delete/'+${user.id}}" method="post">
+            <input type="submit" class="btn btn-danger" value="Удалить">
+          </form>
+        </th>
+        </div>
+      </div>
+    </tr>
+    </tbody>
+  </table>
+    <a href="/" class="btn btn-success mt-2">На главную</a>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

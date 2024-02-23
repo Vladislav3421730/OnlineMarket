@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <p class="OnlineMarketHeaderTitle">OnlineMarket</p>
+            <div sec:authorize="!isAuthenticated()">
+                <input type="button" class="btn btn-success" value="Войти"
+                       onclick="window.location.href='/login'">
+            </div>
+            <div sec:authorize="isAuthenticated()" class="Profile">
+                <h4 th:text="${user.login}" style="color: white;" ></h4>
+                <div th:if="${user.image==null}">
+                    <a th:href="@{'/profile/'+${user.id}}" ><img class="ProfileImage"
+                                                                 src="https://cdn.icon-icons.com/icons2/1993/PNG/512/account_avatar_face_man_people_profile_user_icon_123197.png"></a>
+                </div>
+                <div th:unless="${user.image==null}" >
+                    <a  th:href="@{'/profile/'+${user.id}}">
+                        <img class="ProfileImage" th:src="@{'/images/'+${user.image.id}}" alt="Avatar">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+    <section>
+        <div class="container-fluid my-4 mx-2">
+    <form th:action="@{/product/save}" method="post" enctype="multipart/form-data">
+    <p>Введите наименование товара</p>
+    <input type="text" name="Title">
+    <p style="margin-top: 5px">Введите цену</p>
+        <input type="number" name="Coast">
+    <p style="margin-top: 5px">Введите описание</p>
+    <input style="margin-top: 5px" type="text" name="Description">
+        <div class="mb-3  w-small">
+            <label class="form-label">Картинка 1</label>
+            <input class="form-control" type="file" name="file1" multiple>
+        </div>
+        <div class="mb-3  w-small">
+            <label class="form-label">Картинка 2</label>
+            <input class="form-control" type="file" name="file2" multiple>
+        </div>
+        <div class="mb-3  w-small">
+            <label  class="form-label">Картинка 3</label>
+            <input class="form-control" type="file" name="file3" multiple>
+        </div>
+        <input type="submit" class="btn btn-outline-secondary" value="Ок">
+    </form>
+        </div>
+    </section>
+    <footer class="mt-4 bg-dark">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 footer-text text-center">
+                    <p>All Rights Reserved 2024</p>
+                </div>
+                <div class="col-lg-4 col-md-12 footer-text text-center">
+                    <p>Contacts<br>Job<br>Our team</p>
+                </div>
+                <div class="col-lg-4 col-md-12 media-links">
+                    <img style="width: 40px;height:40px;margin-inline: 1em; " src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Картинка телеграмма">
+                    <img style="width: 40px;height:40px; margin-inline: 1em;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Картинка Инстаграма">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
