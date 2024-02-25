@@ -1,10 +1,7 @@
 package com.example.onlinemarket.RestControllers;
 
 import com.example.onlinemarket.Repositories.ImageRepository;
-import com.example.onlinemarket.Repositories.UserRepository;
 import com.example.onlinemarket.models.Image;
-import com.example.onlinemarket.models.User;
-import jakarta.servlet.annotation.HttpConstraint;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -23,7 +20,8 @@ public class ImageController {
 
     @GetMapping("/images/{id}")
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
-        Image image=imageRepository.findById(id).orElse(null);
+        Image image=imageRepository.findById(id).orElseThrow(()->
+                new NullPointerException("image with id "+id +" not found"));
         return ResponseEntity.ok()
                 .header("fileName", image.getOriginalFileName())
                 .contentType(MediaType.valueOf(image.getContentType()))

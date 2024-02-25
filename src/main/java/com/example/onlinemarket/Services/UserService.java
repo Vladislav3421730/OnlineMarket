@@ -45,7 +45,8 @@ public class UserService {
         imageRepository.save(FutureAvatar);
     }
     public User getUserById(Long id){
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(()->
+                new NullPointerException("user with id "+id+" not found"));
     }
     public List<User> GetAllUsers(){return userRepository.findAll();}
 
@@ -70,8 +71,10 @@ public class UserService {
             throw new NullPointerException("User doesn't exist");
         }
         if(!user.isIsBun()){
-            if (!user.isAdmin() && !Currentuser.isAdmin() && Currentuser.getRoleSet().contains(Role.ROLE_MANAGER))
-                user.setIsBun(true);
+           if(!Currentuser.isAdmin() && user.isAdmin()){
+               throw new IllegalStateException("Current user is not allowed to ban an admin user.");
+           }
+           else user.setIsBun(true);
         }
         else user.setIsBun(false);
         userRepository.save(user);

@@ -26,13 +26,6 @@ public class ImageProductController {
         return "AddProducts";
 
     }
-    @GetMapping("/product/edit/{id}")
-    public String EditProduct(@PathVariable Long id,Model model,Principal principal){
-        model.addAttribute("product",productService.FindProductById(id));
-        model.addAttribute("user",userService.getUserByPrincipal(principal));
-        return "AddProducts";
-    }
-
     @PostMapping("/product/delete/{id}")
     public String DeleteProductById(@PathVariable Long id,Principal principal,Model model){
         productService.DeleteProductById(id);

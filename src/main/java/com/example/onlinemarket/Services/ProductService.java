@@ -74,6 +74,7 @@ public class ProductService {
     }
 
     public Product FindProductById(Long id){
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findById(id).orElseThrow(()->
+                new NullPointerException("product with id " + id+ " not found"));
     }
 }
