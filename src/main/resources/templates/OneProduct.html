@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <p class="OnlineMarketHeaderTitle">OnlineMarket</p>
             <div sec:authorize="!isAuthenticated()">
-                <input type="button" class="btn btn-success" value="Войти"
+                <input type="button"  value="Войти"
                        onclick="window.location.href='/login'">
             </div>
             <div sec:authorize="isAuthenticated()" class="Profile">
@@ -40,9 +40,16 @@
           <h3 th:text="${product.coast}"></h3>
           <h4><a th:href="@{'/profile/'+${product.user.id}}">Автор</a></h4>
           <p th:text="${product.description}" ></p>
+
+          <div th:if="${product.getImageList().isEmpty()}" >
+              <img src="https://kartinkof.club/uploads/posts/2022-12/1670493543_kartinkof-club-p-kartinki-net-8.jpg"
+                   style="width: 400px;height: 400px;margin: 20px;margin-inline: 0" alt="...">
+          </div>
+          <div th:unless="${product.getImageList().isEmpty()}">
           <div th:each="image : ${product.getImageList()}">
               <img style="width: 400px;height: 400px;margin: 20px;margin-inline: 0"
                    th:src="@{'/images/'+${image.id}}" alt="Картинка">
+          </div>
           </div>
           <a href="/" class="btn btn-success">На главную</a>
       </div>

@@ -1,13 +1,14 @@
 package com.example.onlinemarket;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OnlineMarketApplicationTests {
+public class SpringBootApplicationTest {
 
     @Test
-    void contextLoads() {
-    }
+    public void Test1(){
 
+    }
 }

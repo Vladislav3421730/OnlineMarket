@@ -33,9 +33,9 @@ public class ImageProductController {
     }
 
     @PostMapping("/product/save")
-    public String ViewInformationAboutProduct(Product product, @RequestParam("file1") MultipartFile file1,
-                                              @RequestParam("file2") MultipartFile file2,
-                                              @RequestParam("file3") MultipartFile file3,Principal principal) throws  IOException {
+    public String ViewInformationAboutProduct(Product product, @RequestParam(name="file1",required = false) MultipartFile file1,
+                                              @RequestParam(name="file2",required = false) MultipartFile file2,
+                                              @RequestParam(name="file3",required = false) MultipartFile file3,Principal principal) throws  IOException {
         productService.saveProduct(product,principal,file1,file2,file3);
         return "redirect:/profile/"+userService.getUserByPrincipal(principal).getId().toString();
     }

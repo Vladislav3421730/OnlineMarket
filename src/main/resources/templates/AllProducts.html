@@ -66,7 +66,10 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-6 mt-3" th:each="product : ${products}">
                             <div class="card">
-                                <a th:href="@{'/product/view/'+${product.id}}"><img th:src="@{'/images/'+${product.getImageList().get(0).id}}" class="card-img-top" alt="..."></a>
+                                <a th:href="@{'/product/view/'+${product.id}}">
+                                    <div th:unless="${product.getImageList().isEmpty()}" > <img th:src="@{'/images/'+${product.getImageList().get(0).id}}" class="card-img-top" alt="..."></div>
+                                    <div th:if="${product.getImageList().isEmpty()}" ><img src="https://kartinkof.club/uploads/posts/2022-12/1670493543_kartinkof-club-p-kartinki-net-8.jpg" class="card-img-top" alt="..."></div>
+                                </a>
                                 <div class="card-body">
                                     <h4 class="card-title" th:text="${product.title}" ></h4>
                                     <h5 class="card-title" th:text="${product.coast}" ></h5>
