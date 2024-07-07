@@ -1,10 +1,20 @@
+version: '3'
 services:
+
+  web:
+    build: .
+    ports:
+      - "8080:8080"
   mysql:
     image: 'mysql:latest'
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      - 'MYSQL_DATABASE=onlinemarket'
+      - 'MYSQL_PASSWORD=bestuser'
+      - 'MYSQL_ROOT_PASSWORD=bestuser'
+      - 'MYSQL_USER=bestuser'
     ports:
       - '3306'
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile

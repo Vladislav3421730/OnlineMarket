@@ -54,7 +54,7 @@
           <div th:if="${user.image==null}">
             <form th:action="@{'/SetAvatar'}" method="post" enctype="multipart/form-data">
               <div class="ProfileContainer">
-              <input class="form-control" type="file" name="avatar" multiple>
+              <input class="form-control" type="file" name="avatar" multiple required>
               <input type="submit" class="btn btn-success mt-4" value="Загрузить аватарку">
               </div>
             </form>
@@ -62,7 +62,7 @@
           <div th:unless="${user.image==null}" >
           <form th:action="@{'/ChangeAvatar/'+${user.image.id}}" method="post" enctype="multipart/form-data">
               <div class="ProfileContainer">
-              <input class="form-control" type="file" name="avatar"  multiple>
+              <input class="form-control" type="file" name="avatar"  multiple required>
               <input type="submit" class="btn btn-primary mt-4"  value="Сменить аватарку">
               </div>
           </form>

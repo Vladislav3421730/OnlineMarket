@@ -2,6 +2,7 @@ package com.example.onlinemarket.Services;
 
 import com.example.onlinemarket.Repositories.ImageRepository;
 import com.example.onlinemarket.Repositories.ProductRepository;
+import com.example.onlinemarket.exceptions.DataNotFoundException;
 import com.example.onlinemarket.models.Image;
 import com.example.onlinemarket.models.Product;
 import com.example.onlinemarket.models.User;
@@ -75,6 +76,6 @@ public class ProductService {
 
     public Product FindProductById(Long id){
         return productRepository.findById(id).orElseThrow(()->
-                new NullPointerException("product with id " + id+ " not found"));
+                new DataNotFoundException("product with id " + id+ " not found"));
     }
 }

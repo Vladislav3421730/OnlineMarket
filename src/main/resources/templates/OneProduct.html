@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <p class="OnlineMarketHeaderTitle">OnlineMarket</p>
             <div sec:authorize="!isAuthenticated()">
-                <input type="button"  value="Войти"
+                <input type="button" class="btn btn-success"  value="Войти"
                        onclick="window.location.href='/login'">
             </div>
             <div sec:authorize="isAuthenticated()" class="Profile">

@@ -2,7 +2,6 @@ package com.example.onlinemarket.Services;
 
 import com.example.onlinemarket.Repositories.UserRepository;
 import com.example.onlinemarket.models.User;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

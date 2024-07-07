@@ -54,6 +54,9 @@
 .w-small{
     width: 370px;
 }
+.card{
+    transition: all 0.3s ease-in-out;
+}
 .card:hover{
     transform: scale(1.05);
 }
