@@ -1,22 +1,17 @@
 package com.example.onlinemarket.Services;
 
-import com.example.onlinemarket.Repositories.ImageRepository;
 import com.example.onlinemarket.Repositories.ProductRepository;
 import com.example.onlinemarket.exceptions.DataNotFoundException;
 import com.example.onlinemarket.models.Image;
 import com.example.onlinemarket.models.Product;
-import com.example.onlinemarket.models.User;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 @AllArgsConstructor
@@ -46,13 +41,13 @@ public class ProductService {
     }
 
     public static Image toImageEntity(MultipartFile file) throws IOException {
-        Image image = new Image();
-        image.setName(file.getName());
-        image.setOriginalFileName(file.getOriginalFilename());
-        image.setContentType(file.getContentType());
-        image.setSize(file.getSize());
-        image.setBytes(file.getBytes());
-        return image;
+        return  Image.builder()
+                .name(file.getName())
+                .OriginalFileName(file.getOriginalFilename())
+                .contentType(file.getContentType())
+                .Size(file.getSize())
+                .bytes(file.getBytes())
+                .build();
     }
 
     public void DeleteProductById(Long id){

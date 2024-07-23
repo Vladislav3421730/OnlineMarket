@@ -34,10 +34,12 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
+
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) return new User();
         return userRepository.findUserByLogin(principal.getName());
     }
+
     public void SetAvatar(MultipartFile avatar, Principal principal) throws IOException {
         Image FutureAvatar = new Image();
         if(avatar.getSize()!=0) {
@@ -46,10 +48,12 @@ public class UserService {
         FutureAvatar.setUser(getUserByPrincipal(principal));
         imageRepository.save(FutureAvatar);
     }
+
     public User getUserById(Long id){
         return userRepository.findById(id).orElseThrow(()->
                 new DataNotFoundException("user with id "+id+" not found"));
     }
+
     public List<User> GetAllUsers(){return userRepository.findAll();}
 
     public void DeleteUserById(Long id){ userRepository.deleteById(id); }

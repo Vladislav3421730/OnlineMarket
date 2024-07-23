@@ -24,17 +24,17 @@ public class User implements UserDetails {
     private Long id;
 
     @Size(min = 4,max = 25,message = "Логин должен содержать от 4 до 25 символов")
-    @NotBlank(message = "Логин не может состоять из пробелов")
     @Column(name="login")
     private String login;
 
     @Column(name="password")
+    @NotBlank(message =  "Пароль не должен быть пустым")
     private String Password;
 
     @Column(name="PhoneNumber")
     private String PhoneNumber;
 
-    @NotNull
+    @Email
     @Column(name="email")
     private String email;
 

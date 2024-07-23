@@ -4,11 +4,11 @@ package com.example.onlinemarket.controllers;
 import com.example.onlinemarket.Repositories.ImageRepository;
 import com.example.onlinemarket.Services.UserService;
 import com.example.onlinemarket.models.User;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,15 +39,18 @@ public class UserController {
 
 
     @PostMapping("/registration")
-    public String registerUser(@Valid User user, BindingResult bindingResult,Model model) {
+    public String registerUser(@Validated User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("user",user);
             return "registration";
         }
         if (!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("user",user);
             model.addAttribute("PasswordsAreNotTheSame", "Пароли не совпадают");
             return "registration";
         }
         if (!userService.SaveUser(user)) {
+            model.addAttribute("user",user);
             model.addAttribute("UserAlsoInSystem", "Пользователь с таким лонгином уже есть в системе");
             return "registration";
         }
@@ -62,13 +65,13 @@ public class UserController {
 
     @PostMapping("/SetAvatar")
     public String ChangeAvatar(@RequestParam(name = "avatar") MultipartFile multipartFile,
-                                Model model,Principal principal) throws IOException {
+                                Principal principal) throws IOException {
         userService.SetAvatar(multipartFile,principal);
         return "redirect:/profile/"+userService.getUserByPrincipal(principal).getId().toString();
     }
     @PostMapping("/ChangeAvatar/{id}")
     public String ChangeAvatar(@RequestParam(name = "avatar") MultipartFile multipartFile,
-                                @PathVariable Long id,Model model,Principal principal) throws IOException {
+                                @PathVariable Long id,Principal principal) throws IOException {
         imageRepository.deleteById(id);
         userService.SetAvatar(multipartFile,principal);
         return "redirect:/profile/"+userService.getUserByPrincipal(principal).getId().toString();

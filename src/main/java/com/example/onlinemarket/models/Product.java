@@ -1,9 +1,7 @@
 package com.example.onlinemarket.models;
 
 import jakarta.persistence.*;
-
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,14 +20,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "Название товара пустое")
+    @NotBlank(message = "Название товара пустое")
     @Column(name = "Title")
     private String Title;
 
     @Column(name = "Description",columnDefinition = "text")
+    @NotBlank(message = "Добавьте описание")
     private String Description;
 
-    @NotNull(message = "Цена не введена")
     @Column(name="Coast")
     private double Coast;
 

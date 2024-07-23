@@ -2,6 +2,7 @@ package com.example.onlinemarket.config;
 
 import com.example.onlinemarket.Services.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,9 +10,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 
 @Configuration
@@ -30,8 +31,7 @@ public class SecurityConfig  {
                         .requestMatchers("/product/**","/SetAvatar","/ChangeAvatar").authenticated()
                         .requestMatchers("/user**").hasAnyRole("ADMIN","MANAGER")
                         .requestMatchers("/user/delete/{id}","/user/admin/{id}").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().permitAll())
                 .formLogin((form)->form
                         .loginPage("/login")
                         .defaultSuccessUrl("/")

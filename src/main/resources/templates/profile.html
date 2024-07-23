@@ -8,6 +8,12 @@
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+      html, body {
+        overflow-x: hidden; /* Скрывает горизонтальный скроллбар */
+        width: 100%;
+      }
+    </style>
 </head>
 <body>
 <header>
@@ -33,7 +39,6 @@
     </div>
   </nav>
 </header>
-</div>
 <section>
     <div class="container-fluid my-2">
       <div class="row">
@@ -118,9 +123,9 @@
                 onclick="window.location.href='/users'">
             </div>
           </div>
+      </div>
         <div class="col-lg-2">
         </div>
-      </div>
     </div>
     </div>
 </section>
